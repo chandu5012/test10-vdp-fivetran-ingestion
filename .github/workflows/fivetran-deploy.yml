@@ -4,7 +4,7 @@ on:
   pull_request:
     paths: ["connectors/**", "tables/**"]
   push:
-    branches: [master]
+    branches: [main]
     paths: ["connectors/**", "tables/**"]
   workflow_dispatch:
     inputs:
@@ -50,7 +50,7 @@ jobs:
 
   apply-dev:
     needs: [detect-env, plan]
-    if: needs.detect-env.outputs.env == 'dev' && github.ref == 'refs/heads/master'
+    if: needs.detect-env.outputs.env == 'dev' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -104,7 +104,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: master
+          ref: main
       - uses: hashicorp/setup-terraform@v3
       - working-directory: environments/prod
         run: |
